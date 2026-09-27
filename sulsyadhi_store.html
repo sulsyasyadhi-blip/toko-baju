@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SULSYADHI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes image-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .hero-copy { animation: rise-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .hero-photo { animation: image-in 900ms 120ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 550ms ease, transform 550ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
+    .hero-bg {
+      background: radial-gradient(ellipse at 82% 12%, rgba(128, 0, 32, 0.24), transparent 40%), linear-gradient(135deg, #171114 0%, #100c0e 58%, #241017 100%);
+    }
+    .glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); }
+    .soft-shadow { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22); }
+    .primary { color: #e5a0b1; }
+    .primary-bg { background: #800020; }
+    .primary-soft { background: #35151f; }
+    .accent { color: #e5a0b1; }
+    body[class] { background: #100c0e !important; color: #f2e8eb !important; }
+    header { background: rgba(18, 13, 15, 0.92) !important; border-color: #39272e !important; }
+    footer { background: #151013 !important; border-color: #39272e !important; }
+    body .bg-white { background-color: #1b1518 !important; }
+    body .text-stone-900 { color: #fff5f7 !important; }
+    body .text-stone-800 { color: #f2e8eb !important; }
+    body .text-stone-700 { color: #decbd1 !important; }
+    body .text-stone-600 { color: #c1afb5 !important; }
+    body .text-stone-500 { color: #a28f96 !important; }
+    body .border-stone-200 { border-color: #3b2b31 !important; }
+    body .border-stone-300 { border-color: #57414a !important; }
+    #inspirasi { background: linear-gradient(180deg, #171114, #110d0f) !important; }
+    #inspirasi .mb-4.text-2xl { display: none; }
+    #pembayaran .border-y { border-color: #49303a !important; }
+    #pembayaran .grid > div { background: #fff !important; border-color: #39272e !important; }
+    #fitur .soft-shadow,
+    #inspirasi .soft-shadow { border-color: #39272e; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2); }
+    #cartDialog, #orderDialog { color: #f2e8eb; background: #1b1518; }
+    #orderDialog input, #orderDialog textarea { color: #fff5f7; background: #110d0f; }
+    #orderDialog input::placeholder, #orderDialog textarea::placeholder { color: #8f7c83; }
+    dialog::backdrop { background: rgba(5, 3, 4, 0.78); backdrop-filter: blur(5px); }
+    :focus-visible { outline: 2px solid #e5a0b1; outline-offset: 3px; }
+    ::selection { color: #fff; background: #800020; }
+    main > section:last-of-type button { color: #800020 !important; background: #fff5f7 !important; }
+    #fitur .soft-shadow,
+    #inspirasi .soft-shadow {
+      border: 1px solid #eee2e6;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(91, 0, 26, 0.06);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal-item { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="bg-[#fbf7f8] text-stone-800 antialiased">
+  <header class="sticky top-0 z-50 border-b border-stone-200/80 bg-white/80 backdrop-blur-xl">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-20 items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl primary-soft text-2xl shadow-sm">🏪</div>
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.28em] primary">BUSANA KITA</p>
+            <h1 class="font-serif text-xl font-bold text-stone-900">SULSYADHI</h1>
+          </div>
+        </div>
+
+        <nav class="hidden items-center gap-8 text-sm font-medium text-stone-600 md:flex">
+          <a href="#home" class="transition hover:text-[#800020]">Beranda</a>
+          <a href="#fitur" class="transition hover:text-[#800020]">Keunggulan</a>
+          <a href="#produk" class="transition hover:text-[#800020]">Produk</a>
+          <a href="#inspirasi" class="transition hover:text-[#800020]">Inspirasi</a>
+        </nav>
+
+        <button onclick="openCart()" class="rounded-full primary-bg px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#800020]/20 transition hover:opacity-95" aria-label="Buka keranjang">
+          🛒 Keranjang <span id="cartCount" class="ml-1 rounded-full bg-white/20 px-2 py-0.5">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero-bg pt-8 pb-16 sm:pt-12 lg:pt-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="hero-copy">
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-[#68404c] bg-[#35151f] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] primary">
+              <span class="h-2 w-2 rounded-full bg-[#b03050]"></span>
+              BUSANA PRIA & WANITA
+            </div>
+
+            <h2 class="font-serif text-4xl font-extrabold leading-tight text-stone-900 sm:text-5xl lg:text-6xl">
+              Gaya untuk semua,<br />
+              <span class="text-[#e5a0b1]">nyaman setiap hari.</span>
+            </h2>
+
+            <p class="mt-5 max-w-xl text-lg leading-relaxed text-stone-600">
+              Pilih busana untuk semua: gamis, hijab, mukena, baju koko, batik, hingga kemeja. Temukan gaya yang nyaman untuk kerja, ibadah, dan keseharian.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="#produk" class="rounded-lg primary-bg px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#800020]/15 transition hover:opacity-95">
+                Belanja koleksi
+              </a>
+              <a href="#produk" class="rounded-lg border border-[#e8c2cb] bg-white px-6 py-3.5 text-base font-semibold text-stone-700 transition hover:border-[#c9788c] hover:bg-[#fff6f7]">
+                Lihat produk
+              </a>
+            </div>
+
+            <div class="mt-8 flex flex-wrap items-center gap-6 text-sm text-stone-600">
+              <div class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-[#e5a0b1]"></span> Pilihan gaya</div>
+              <div class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-[#b03050]"></span> Nyaman dikenakan</div>
+              <div class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-[#7a1029]"></span> Pesan via WhatsApp</div>
+            </div>
+          </div>
+
+          <div class="hero-photo relative mt-2 aspect-[4/3] overflow-hidden rounded-lg border border-white/10 shadow-2xl shadow-black/30 lg:mt-0 lg:aspect-[4/5]">
+            <img src="sulsyadhi-assets/hero-abaya.jpg" alt="Inspirasi busana abaya wanita" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#100c0e]/85 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#f3c5d0]">SULSYADHI</p>
+              <p class="mt-2 font-serif text-2xl font-bold text-white">Temukan gaya yang terasa seperti dirimu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fitur" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] primary">Dibuat untuk keseharianmu</p>
+        <h3 class="mt-3 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Nyaman dipakai, mudah disukai</h3>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#35151f] text-2xl">✅</div>
+          <h4 class="mb-2 text-xl font-bold text-stone-900">Untuk pria & wanita</h4>
+          <p class="text-sm leading-relaxed text-stone-600">Pilih dari gamis, hijab, mukena, koko, batik, hingga kemeja dalam satu tempat.</p>
+        </div>
+
+        <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#35151f] text-2xl">💰</div>
+          <h4 class="mb-2 text-xl font-bold text-stone-900">Temani beragam momen</h4>
+          <p class="text-sm leading-relaxed text-stone-600">Lengkapi gaya santai, kerja, ibadah, dan acara keluarga dengan pilihan yang sesuai.</p>
+        </div>
+
+        <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#35151f] text-2xl">⚡</div>
+          <h4 class="mb-2 text-xl font-bold text-stone-900">Pesan dengan mudah</h4>
+          <p class="text-sm leading-relaxed text-stone-600">Atur pilihan dan jumlah barang di keranjang, kemudian teruskan pesanan lewat WhatsApp.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#3b111d] py-16 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[#ffe1e8]">Statistik</p>
+            <h3 class="mt-3 font-serif text-3xl font-bold md:text-4xl">Satu koleksi, banyak cara untuk tampil percaya diri</h3>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 text-center">
+            <div>
+              <div class="text-3xl font-extrabold text-rose-200">01</div>
+              <div class="mt-1 text-sm text-stone-300">Gaya anggun</div>
+            </div>
+            <div>
+              <div class="text-3xl font-extrabold text-pink-200">02</div>
+              <div class="mt-1 text-sm text-stone-300">Nyaman dipakai</div>
+            </div>
+            <div>
+              <div class="text-3xl font-extrabold text-red-200">03</div>
+              <div class="mt-1 text-sm text-stone-300">Mudah dipesan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="produk" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] primary">Koleksi Busana Kita</p>
+          <h3 class="mt-3 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Busana untuk setiap momen</h3>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-stone-600">Gamis, hijab, mukena, koko, batik, dan kemeja. Hubungi kami untuk memastikan pilihan warna dan ukuran.</p>
+        </div>
+        <button onclick="openCart()" class="self-start rounded-full border border-[#e8c2cb] bg-white px-4 py-2 text-sm font-semibold text-stone-700 transition hover:border-[#c9788c] hover:bg-[#fff6f7]">
+          Lihat keranjang
+        </button>
+      </div>
+
+      <nav class="mb-8 flex flex-wrap gap-3" aria-label="Pilih kategori busana">
+        <a href="#stok-wanita" class="rounded-lg border border-[#68404c] bg-[#35151f] px-4 py-2 text-sm font-semibold text-[#f2e8eb] transition hover:border-[#e5a0b1]">Busana wanita</a>
+        <a href="#stok-pria" class="rounded-lg border border-[#68404c] bg-[#35151f] px-4 py-2 text-sm font-semibold text-[#f2e8eb] transition hover:border-[#e5a0b1]">Busana pria</a>
+      </nav>
+
+      <div id="stok-wanita" class="mb-12 scroll-mt-28">
+        <div class="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] primary">Koleksi wanita</p>
+            <h4 class="mt-2 font-serif text-2xl font-bold text-stone-900">Busana wanita</h4>
+          </div>
+          <span class="text-sm text-stone-500">6 pilihan</span>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/gamis.jpg" alt="Inspirasi gamis wanita berwarna marun" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Gamis Nala</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Gamis</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Siluet longgar dan anggun untuk acara spesial maupun gaya harian.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp149.000</span>
+              <button onclick="addToCart('Gamis Nala', 149000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/daster.jpg" alt="Inspirasi daster santai untuk di rumah" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Daster Rayon Sora</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Santai</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Pilihan ringan dan leluasa untuk menemani aktivitas santai di rumah.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp79.000</span>
+              <button onclick="addToCart('Daster Rayon Sora', 79000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/mukena.jpg" alt="Inspirasi mukena putih untuk ibadah" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Mukena Travel Aira</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Ibadah</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Mukena praktis dengan tampilan bersih, cocok dibawa bepergian.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp129.000</span>
+              <button onclick="addToCart('Mukena Travel Aira', 129000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/tunik.jpg" alt="Inspirasi tunik wanita dengan hijab" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Tunik Selaras</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Serbaguna</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Potongan santun yang mudah dipadukan untuk tampilan rapi dan modern.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp115.000</span>
+              <button onclick="addToCart('Tunik Selaras', 115000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/bergo.jpg" alt="Inspirasi jilbab bergo hitam" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Bergo Luma</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Hijab</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Jilbab bergo praktis untuk pilihan gaya yang simpel dan rapi.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp49.000</span>
+              <button onclick="addToCart('Bergo Luma', 49000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/hijab-segiempat.jpg" alt="Inspirasi hijab segiempat" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Segiempat Naya</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Hijab</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Hijab segiempat yang mudah dipadukan untuk berbagai suasana.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp35.000</span>
+              <button onclick="addToCart('Segiempat Naya', 35000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+        </div>
+      </div>
+
+      <div id="stok-pria" class="scroll-mt-28">
+        <div class="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] primary">Koleksi pria</p>
+            <h4 class="mt-2 font-serif text-2xl font-bold text-stone-900">Busana pria</h4>
+          </div>
+          <span class="text-sm text-stone-500">3 pilihan</span>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/koko.jpg" alt="Inspirasi busana koko pria" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Koko Arkan</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Pria</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Baju koko pria untuk beribadah dan acara keluarga.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp129.000</span>
+              <button onclick="addToCart('Koko Arkan', 129000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/batik.jpg" alt="Inspirasi kemeja batik pria" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Batik Pusaka</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Batik</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Kemeja batik untuk tampilan rapi di acara formal maupun santai.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp155.000</span>
+              <button onclick="addToCart('Batik Pusaka', 155000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-lg border border-[#eee2e6] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <div class="h-64 overflow-hidden bg-[#241017]"><img src="sulsyadhi-assets/kemeja.jpg" alt="Inspirasi kemeja kasual pria" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+          <div class="p-5">
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <h4 class="text-lg font-bold text-stone-900">Kemeja Nusa</h4>
+              <span class="rounded-full bg-[#35151f] px-2 py-1 text-[10px] font-semibold text-[#e5a0b1]">Pria</span>
+            </div>
+            <p class="mb-4 text-sm leading-relaxed text-stone-600">Kemeja kasual untuk dipakai bekerja atau bepergian.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-stone-900">Rp139.000</span>
+              <button onclick="addToCart('Kemeja Nusa', 139000)" class="rounded-lg bg-[#800020] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#600018]">+ Keranjang</button>
+            </div>
+          </div>
+        </article>
+      </div>
+      </div>
+    </section>
+
+    <section id="inspirasi" class="py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] primary">Inspirasi koleksi</p>
+          <h3 class="mt-3 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Satu gaya untuk tiap suasana</h3>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+            <div class="mb-4 text-2xl">⭐️⭐️⭐️⭐️⭐️</div>
+            <p class="text-sm leading-relaxed text-stone-600">Temani rutinitas di rumah dengan potongan santai dan bahan yang nyaman bergerak.</p>
+            <div class="mt-5 border-t border-stone-200 pt-4">
+              <p class="font-bold text-stone-900">Daster Rayon</p>
+              <p class="text-sm text-stone-500">Santai sehari-hari</p>
+            </div>
+          </div>
+
+          <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+            <div class="mb-4 text-2xl">⭐️⭐️⭐️⭐️⭐️</div>
+            <p class="text-sm leading-relaxed text-stone-600">Mukena ringkas yang praktis disiapkan untuk beribadah di rumah maupun saat bepergian.</p>
+            <div class="mt-5 border-t border-stone-200 pt-4">
+              <p class="font-bold text-stone-900">Mukena Travel</p>
+              <p class="text-sm text-stone-500">Waktu ibadah</p>
+            </div>
+          </div>
+
+          <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 soft-shadow">
+            <div class="mb-4 text-2xl">⭐️⭐️⭐️⭐️⭐️</div>
+            <p class="text-sm leading-relaxed text-stone-600">Batik dan baju koko memberi pilihan rapi untuk acara keluarga maupun momen istimewa.</p>
+            <div class="mt-5 border-t border-stone-200 pt-4">
+              <p class="font-bold text-stone-900">Batik & Koko</p>
+              <p class="text-sm text-stone-500">Gaya pria</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pembayaran" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div class="border-y border-rose-200 py-8">
+        <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] primary">Pembayaran</p>
+            <h3 class="mt-2 font-serif text-3xl font-bold text-stone-900">Metode pembayaran</h3>
+          </div>
+          <p class="text-sm text-stone-600">Pilih metode pembayaran saat checkout.</p>
+        </div>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="flex h-24 items-center justify-center rounded-xl border border-stone-200 bg-white">
+            <svg viewBox="0 0 150 52" role="img" aria-label="Logo DANA" class="h-12 w-36"><circle cx="24" cy="26" r="19" fill="#118EEA"/><path d="M17 18h11a8 8 0 0 1 0 16H17z" fill="none" stroke="white" stroke-width="4"/><text x="51" y="34" fill="#118EEA" font-family="Arial,sans-serif" font-size="25" font-weight="700">DANA</text></svg>
+          </div>
+          <div class="flex h-24 items-center justify-center rounded-xl border border-stone-200 bg-white">
+            <svg viewBox="0 0 150 52" role="img" aria-label="Logo GoPay" class="h-12 w-36"><circle cx="23" cy="26" r="18" fill="#00AED6"/><path d="M16 26a7 7 0 1 1 2 5" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/><text x="49" y="34" fill="#15344A" font-family="Arial,sans-serif" font-size="23" font-weight="700">go</text><text x="76" y="34" fill="#00AED6" font-family="Arial,sans-serif" font-size="23" font-weight="700">pay</text></svg>
+          </div>
+          <div class="flex h-24 items-center justify-center rounded-xl border border-stone-200 bg-white">
+            <svg viewBox="0 0 150 52" role="img" aria-label="Logo OVO" class="h-12 w-36"><rect x="4" y="6" width="142" height="40" rx="20" fill="#4C3494"/><text x="75" y="34" fill="white" font-family="Arial,sans-serif" font-size="24" font-weight="700" text-anchor="middle">OVO</text></svg>
+          </div>
+          <div class="flex h-24 items-center justify-center rounded-lg border border-[#eee2e6] bg-white">
+            <svg viewBox="0 0 190 64" role="img" aria-label="Logo Bank BCA" class="h-14 w-40"><path d="M12 20 35 8l10 7-23 13z" fill="#0060AE"/><path d="m20 30 22-12 10 7-23 13z" fill="#E31E24"/><path d="m28 40 22-12 10 7-23 13z" fill="#F5C400"/><text x="68" y="45" fill="#0060AE" font-family="Arial,sans-serif" font-size="39" font-weight="700">BCA</text></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="rounded-lg bg-gradient-to-r from-[#600018] via-[#800020] to-[#9d2948] p-8 text-white shadow-lg shadow-[#800020]/15 md:p-10">
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[#ffe1e8]">Siap order?</p>
+            <h3 class="mt-3 font-serif text-3xl font-bold md:text-4xl">Temukan busana yang paling terasa seperti dirimu</h3>
+          </div>
+          <a href="#produk" class="rounded-lg bg-white px-6 py-3.5 text-base font-bold text-[#800020] shadow-md transition hover:bg-[#fff6f7]">
+            Jelajahi koleksi
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-center text-sm text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
+      <p>© 2026 SULSYADHI. Semua hak dilindungi.</p>
+      <div class="flex items-center justify-center gap-4 lg:justify-end">
+        <span>WhatsApp</span>
+        <span>•</span>
+        <span>Busana Pria & Wanita</span>
+        <span>•</span>
+        <span>Hijab • Gamis • Koko • Batik</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/6281295698033" target="_blank" rel="noreferrer" class="fixed bottom-6 right-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-3xl shadow-2xl shadow-[#25D366]/30 transition hover:scale-105">
+    💬
+  </a>
+
+  <dialog id="cartDialog" class="w-[calc(100%-2rem)] max-w-2xl rounded-2xl p-0 shadow-2xl backdrop:bg-stone-950/50">
+    <div class="space-y-5 bg-white p-6 sm:p-8">
+      <div class="flex items-center justify-between gap-4">
+        <h2 class="font-serif text-2xl font-bold text-stone-900">Keranjang belanja</h2>
+        <button type="button" onclick="document.getElementById('cartDialog').close()" class="rounded-lg px-3 py-2 text-sm font-semibold text-stone-600 hover:bg-stone-100" aria-label="Tutup keranjang">Tutup</button>
+      </div>
+      <div id="cartItems" class="divide-y divide-stone-200"></div>
+      <div class="flex items-center justify-between border-t border-stone-200 pt-4 text-lg font-bold text-stone-900">
+        <span>Total</span>
+        <span id="cartTotal">Rp0</span>
+      </div>
+      <button id="checkoutButton" type="button" onclick="continueToCheckout()" class="w-full rounded-xl bg-[#800020] px-4 py-3 font-semibold text-white transition hover:opacity-95" disabled>Lanjut ke checkout</button>
+    </div>
+  </dialog>
+
+  <dialog id="orderDialog" class="w-[calc(100%-2rem)] max-w-lg rounded-2xl p-0 shadow-2xl backdrop:bg-stone-950/50">
+    <form id="orderForm" class="space-y-5 bg-white p-6 sm:p-8">
+      <div>
+        <h2 class="font-serif text-2xl font-bold text-stone-900">Data Pemesan</h2>
+        <p id="orderProductSummary" class="mt-1 whitespace-pre-line text-sm text-stone-600"></p>
+      </div>
+      <label class="block text-sm font-semibold text-stone-700" for="namaPemesan">
+        Nama pemesan
+        <input id="namaPemesan" name="namaPemesan" type="text" autocomplete="name" required class="mt-2 w-full rounded-xl border border-stone-300 px-4 py-3 font-normal outline-none focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/20" placeholder="Masukkan nama Anda" />
+      </label>
+      <label class="block text-sm font-semibold text-stone-700" for="alamatPemesan">
+        Alamat pemesan
+        <textarea id="alamatPemesan" name="alamatPemesan" autocomplete="street-address" required rows="3" class="mt-2 w-full resize-y rounded-xl border border-stone-300 px-4 py-3 font-normal outline-none focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/20" placeholder="Masukkan alamat lengkap pengiriman"></textarea>
+      </label>
+      <label class="block text-sm font-semibold text-stone-700" for="catatanPemesan">
+        Catatan tambahan (opsional)
+        <textarea id="catatanPemesan" name="catatanPemesan" rows="2" class="mt-2 w-full resize-y rounded-xl border border-stone-300 px-4 py-3 font-normal outline-none focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/20" placeholder="Contoh: patokan alamat atau pesan untuk pesanan"></textarea>
+      </label>
+      <fieldset>
+        <legend class="mb-2 text-sm font-semibold text-stone-700">Pilih metode pembayaran</legend>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 p-3 text-sm font-semibold hover:border-[#800020]"><input type="radio" name="metodePembayaran" value="DANA" required class="accent-[#800020]" /><span class="text-[#118EEA]">DANA</span></label>
+          <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 p-3 text-sm font-semibold hover:border-[#800020]"><input type="radio" name="metodePembayaran" value="GoPay" class="accent-[#800020]" /><span class="text-[#00AED6]">GoPay</span></label>
+          <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 p-3 text-sm font-semibold hover:border-[#800020]"><input type="radio" name="metodePembayaran" value="OVO" class="accent-[#800020]" /><span class="text-[#4C3494]">OVO</span></label>
+          <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 p-3 text-sm font-semibold hover:border-[#800020]"><input type="radio" name="metodePembayaran" value="BCA" class="accent-[#800020]" /><span class="text-[#0060AE]">BCA</span></label>
+        </div>
+        <div id="paymentInfo" class="mt-4 hidden rounded-lg border border-[#57414a] bg-[#110d0f] p-4 text-center">
+          <p class="text-sm font-semibold text-[#f2e8eb]">Metode dipilih: <span id="paymentMethod" class="text-[#e5a0b1]"></span></p>
+          <p class="mt-1 text-sm text-[#c1afb5]">Total pesanan: <span id="paymentAmount" class="font-bold text-white"></span></p>
+          <p class="mt-3 text-xs leading-relaxed text-[#c1afb5]">Detail pembayaran dikonfirmasi melalui WhatsApp setelah pesanan dikirim.</p>
+        </div>
+      </fieldset>
+      <div class="flex justify-end gap-3">
+        <button id="cancelOrder" type="button" class="rounded-xl border border-stone-300 px-4 py-2.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50">Batal</button>
+        <button type="submit" class="rounded-xl bg-[#800020] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95">Kirim pesanan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const nomorWa = "6281295698033";
+    const cartStorageKey = 'sulsyadhiFashionCartV1';
+    const cartDialog = document.getElementById('cartDialog');
+    const orderDialog = document.getElementById('orderDialog');
+    const orderForm = document.getElementById('orderForm');
+    const namaPemesanInput = document.getElementById('namaPemesan');
+    const paymentInfoElement = document.getElementById('paymentInfo');
+    const cartItemsElement = document.getElementById('cartItems');
+    const cartCountElement = document.getElementById('cartCount');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const checkoutButton = document.getElementById('checkoutButton');
+
+    function loadCart() {
+      try {
+        const savedCart = JSON.parse(localStorage.getItem(cartStorageKey) || '[]');
+        return Array.isArray(savedCart) ? savedCart.filter((item) =>
+          item && typeof item.namaProduk === 'string' &&
+          Number.isInteger(item.harga) && item.harga > 0 &&
+          Number.isInteger(item.jumlah) && item.jumlah > 0
+        ) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    let cart = loadCart();
+
+    function saveCart() {
+      try {
+        localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+      } catch {
+      }
+    }
+
+    function formatRupiah(amount) {
+      return `Rp${amount.toLocaleString('id-ID')}`;
+    }
+
+    function getCartTotal() {
+      return cart.reduce((total, item) => total + item.harga * item.jumlah, 0);
+    }
+
+    function createCartButton(label, accessibleName, onClick) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-50';
+      button.textContent = label;
+      button.setAttribute('aria-label', accessibleName);
+      button.addEventListener('click', onClick);
+      return button;
+    }
+
+    function renderCart() {
+      cartItemsElement.replaceChildren();
+      cartCountElement.textContent = cart.reduce((count, item) => count + item.jumlah, 0);
+      cartTotalElement.textContent = formatRupiah(getCartTotal());
+      checkoutButton.disabled = cart.length === 0;
+
+      if (cart.length === 0) {
+        const emptyMessage = document.createElement('p');
+        emptyMessage.className = 'py-8 text-center text-sm text-stone-500';
+        emptyMessage.textContent = 'Keranjang masih kosong. Tambahkan produk untuk mulai berbelanja.';
+        cartItemsElement.append(emptyMessage);
+        return;
+      }
+
+      cart.forEach((item) => {
+        const row = document.createElement('div');
+        row.className = 'flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between';
+
+        const details = document.createElement('div');
+        const name = document.createElement('p');
+        name.className = 'font-semibold text-stone-900';
+        name.textContent = item.namaProduk;
+        const price = document.createElement('p');
+        price.className = 'mt-1 text-sm text-stone-500';
+        price.textContent = `${formatRupiah(item.harga)} x ${item.jumlah} = ${formatRupiah(item.harga * item.jumlah)}`;
+        details.append(name, price);
+
+        const controls = document.createElement('div');
+        controls.className = 'flex items-center gap-2';
+        const decreaseButton = createCartButton('-', `Kurangi ${item.namaProduk}`, () => changeCartQuantity(item.namaProduk, -1));
+        const quantity = document.createElement('span');
+        quantity.className = 'min-w-6 text-center text-sm font-semibold';
+        quantity.textContent = item.jumlah;
+        const increaseButton = createCartButton('+', `Tambah ${item.namaProduk}`, () => changeCartQuantity(item.namaProduk, 1));
+        const removeButton = createCartButton('Hapus', `Hapus ${item.namaProduk} dari keranjang`, () => removeFromCart(item.namaProduk));
+        controls.append(decreaseButton, quantity, increaseButton, removeButton);
+        row.append(details, controls);
+        cartItemsElement.append(row);
+      });
+    }
+
+    function addToCart(namaProduk, harga) {
+      const existingItem = cart.find((item) => item.namaProduk === namaProduk);
+      if (existingItem) {
+        existingItem.jumlah += 1;
+      } else {
+        cart.push({ namaProduk, harga, jumlah: 1 });
+      }
+      saveCart();
+      renderCart();
+      cartDialog.showModal();
+    }
+
+    function changeCartQuantity(namaProduk, difference) {
+      const item = cart.find((cartItem) => cartItem.namaProduk === namaProduk);
+      if (!item) return;
+      item.jumlah += difference;
+      if (item.jumlah <= 0) removeFromCart(namaProduk);
+      else {
+        saveCart();
+        renderCart();
+      }
+    }
+
+    function removeFromCart(namaProduk) {
+      cart = cart.filter((item) => item.namaProduk !== namaProduk);
+      saveCart();
+      renderCart();
+    }
+
+    function openCart() {
+      renderCart();
+      cartDialog.showModal();
+    }
+
+    function continueToCheckout() {
+      if (cart.length === 0) return;
+      document.getElementById('orderProductSummary').textContent = [
+        ...cart.map((item) => `- ${item.namaProduk} x ${item.jumlah}: ${formatRupiah(item.harga * item.jumlah)}`),
+        `Total: ${formatRupiah(getCartTotal())}`
+      ].join('\n');
+      cartDialog.close();
+      orderDialog.showModal();
+      namaPemesanInput.focus();
+    }
+
+    document.getElementById('cancelOrder').addEventListener('click', () => orderDialog.close());
+
+    orderForm.querySelectorAll('input[name="metodePembayaran"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        document.getElementById('paymentMethod').textContent = input.value;
+        document.getElementById('paymentAmount').textContent = formatRupiah(getCartTotal());
+        paymentInfoElement.classList.remove('hidden');
+      });
+    });
+
+    orderForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const namaPemesan = namaPemesanInput.value.trim();
+      const alamatPemesan = document.getElementById('alamatPemesan').value.trim();
+      const catatanPemesan = document.getElementById('catatanPemesan').value.trim();
+      const metodePembayaran = new FormData(orderForm).get('metodePembayaran');
+
+      if (!namaPemesan || !alamatPemesan) {
+        alert('Nama dan alamat pemesan wajib diisi.');
+        return;
+      }
+
+      const detailProduk = cart.map((item) => `- ${item.namaProduk} x ${item.jumlah}: ${formatRupiah(item.harga * item.jumlah)}`).join('\n');
+      const detailCatatan = catatanPemesan ? `\n- Catatan tambahan: ${catatanPemesan}` : '';
+      const pesan = `Halo SULSYADHI, saya ingin memesan:\n\n${detailProduk}\n\n- Total: ${formatRupiah(getCartTotal())}\n- Nama pemesan: ${namaPemesan}\n- Alamat pemesan: ${alamatPemesan}\n- Metode pembayaran pilihan: ${metodePembayaran}${detailCatatan}\n\nMohon konfirmasi detail pembayaran. Terima kasih.`;
+      const url = `https://wa.me/${nomorWa}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+      orderDialog.close();
+      orderForm.reset();
+      paymentInfoElement.classList.add('hidden');
+      document.getElementById('paymentMethod').textContent = '';
+      document.getElementById('paymentAmount').textContent = '';
+      cart = [];
+      saveCart();
+      renderCart();
+    });
+
+    const revealTargets = document.querySelectorAll('#fitur .soft-shadow, #produk article, #inspirasi .soft-shadow, #pembayaran');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealTargets.forEach((item) => item.classList.add('is-visible'));
+    } else {
+      revealTargets.forEach((item, index) => {
+        item.classList.add('reveal-item');
+        item.style.setProperty('--reveal-delay', `${(index % 4) * 70}ms`);
+      });
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealTargets.forEach((item) => revealObserver.observe(item));
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
